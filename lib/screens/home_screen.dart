@@ -3,33 +3,23 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:listlogic/providerclass/provider_screen.dart';
 import 'package:listlogic/screens/add_screen.dart';
+import 'package:listlogic/screens/components_screen.dart';
 import 'package:provider/provider.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  @override
-  void initState() {
-    Provider.of<DataClass>(context, listen: false).emptylist;
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('TRIP'),
+        title: const Text('Home Screen'),
         centerTitle: true,
       ),
       body: Consumer<DataClass>(
         builder: (BuildContext context, value, Widget? child) {
           log('message ${value.emptylist.length}');
-          return value.emptylist.length == 0
+          return value.emptylist.isEmpty
               ? const Center(
                   child: Text('No Data Right Now'),
                 )
@@ -57,59 +47,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            RichText(
-                              text: TextSpan(children: [
-                                const TextSpan(
-                                  text: 'Name :-  ',
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                TextSpan(
-                                  text: path.name.toString(),
-                                  style: const TextStyle(color: Colors.black),
-                                )
-                              ]),
-                            ),
-                            RichText(
-                              text: TextSpan(children: [
-                                const TextSpan(
-                                    text: 'Age :-  ',
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold)),
-                                TextSpan(
-                                  text: path.age.toString(),
-                                  style: const TextStyle(color: Colors.black),
-                                )
-                              ]),
-                            ),
-                            RichText(
-                              text: TextSpan(children: [
-                                const TextSpan(
-                                    text: 'Category :-  ',
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold)),
-                                TextSpan(
-                                  text: path.category.toString(),
-                                  style: const TextStyle(color: Colors.black),
-                                )
-                              ]),
-                            ),
-                            RichText(
-                              text: TextSpan(children: [
-                                const TextSpan(
-                                    text: 'Job-Title :-  ',
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold)),
-                                TextSpan(
-                                  text: path.jobtitle.toString(),
-                                  style: const TextStyle(color: Colors.black),
-                                )
-                              ]),
-                            ),
+                            appText(text: path.name),
+                            appText(text: path.age),
+                            appText(text: path.category),
+                            appText(text: path.jobtitle),
                           ],
                         ),
                       ),
